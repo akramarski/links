@@ -10,21 +10,107 @@
     }
 }
 
+#fullcontainer-index header{
+    position: sticky;
+    margin-top: 32px;
+    display: inline-flex;
 
-body{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: var(--font-size);
-    padding-bottom: calc(var(--gutter) *3) ;
-    padding-left: var(--gutter) ;
-    padding-right: var(--gutter) ;
-    padding-top: calc(var(--gutter) *3) ;
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--gutter);
+}
+.menu{
+    font-family: 'Courier New';
+    color: #525252;
+    position: relative;
 }
 
-h1{
-    color: var(--color);
-    font-size: calc(var(--font-size) *2);
+header {
+    position: fixed;
+    top: 32px;
+    left: 10px;
+    width: calc(((100vw - 35px) / 90) * 84);
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+}
 
+menu a {
+    margin-right: 5px;}
+
+.menu-item {
+        border-radius: 20px;
+        padding: 4px 8px 5.5px;
+}
+
+.description {
+    width: 345px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+} 
+
+body {
+    font-family: 'courier new';
+    font-size: 12px;
+    margin-left: 45px;
+    margin-right: 45px;
+    line-height: 1.3;
+    font-weight: 400;
+    overflow-x: hidden;
+}
+
+main {
+    margin-top: 100px;
+}
+
+#title-homepage {
+    position: fixed;
+    top: 50%;
+    left: 32px;
+    width: calc(100% - 64px);
+    transform: translateY(-50%);
+    font-size: 50px;
+    color: #fff;
+    mix-blend-mode: difference;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    pointer-events: none;
+}
+
+.backgrid {
+    background: #fff;
+    background-image: linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    outline: #525252;
+}
+
+.featured-media {
+    grid-column: span 13;
+}
+
+#full-container-index .featured-media {
+    display: block;
+    filter: grayscale(1);
+    transition: filter .3s linear;
+}
+.featured-single img, .featured-single video {
+    height: 700px;
+}
+
+.project{
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 2fr 2fr 7fr 2fr;
+    position: relative;}
+
+.featured-text {
+        font-size: 40px;
+        text-indent: calc(((100vw - 35px) / 90) * 20);
+        line-height: 1;
+        width: calc(((100vw - 35px) / 90) * 80);
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        text-align: left;
+}
+.single-module {
+    margin-top: 100px;
+    margin-bottom: 20px;
 }
