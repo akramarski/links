@@ -1,0 +1,30 @@
+:root{
+    --font-size:20px;
+    --color: darkgrey;
+
+    --gutter: calc(var(--font-size) * 2 );
+}
+@media (min-width: 600px){
+    :root{
+        --font-size:32px;
+    }
+}
+
+
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: var(--font-size);
+    padding-bottom: calc(var(--gutter) *3) ;
+    padding-left: var(--gutter) ;
+    padding-right: var(--gutter) ;
+    padding-top: calc(var(--gutter) *3) ;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--gutter);
+}
+
+h1{
+    color: var(--color);
+    font-size: calc(var(--font-size) *2);
+
+}
