@@ -36,14 +36,15 @@ let renderBlock = (block) => {
 			`
 			<li class="block block--link project">
 				<p><em>Link</em></p>
+				
+				<h3>${ block.title }</h3>
+				${ block.description_html }
+				<p><a href="${ block.source.url }">See the original ↗</a></p>
 				<picture>
 					<source media="(max-width: 428px)" srcset="${ block.image.thumb.url }">
 					<source media="(max-width: 640px)" srcset="${ block.image.large.url }">
 					<img src=${ block.image.large.url }>
 				</picture>
-				<h3>${ block.title }</h3>
-				${ block.description_html }
-				<p><a href="${ block.source.url }">See the original ↗</a></p>
 			</li>
 			`
 		channelBlocks.insertAdjacentHTML('beforeend', linkItem)
@@ -65,6 +66,13 @@ let renderBlock = (block) => {
 	// Text!
 	else if (block.class == 'Text') {
 		// …up to you!
+		let textItem =
+			`
+			<li class="block block--text block-text">
+			${ block.content_html }
+                </li>
+			`
+		channelBlocks.insertAdjacentHTML('beforeend', textItem)
 	}
 
 	// Uploaded (not linked) media…
