@@ -32,7 +32,7 @@ header {
     z-index: 100;
 }
 
-menu a {
+menu a{
     margin-right: 5px;}
 
 .menu-item {
@@ -40,7 +40,7 @@ menu a {
         padding: 4px 8px 5.5px;
 }
 
-.description {
+.channel-description {
     width: 345px;
     display: inline-block;
     vertical-align: top;
@@ -64,53 +64,64 @@ main {
 #title-homepage {
     position: fixed;
     top: 50%;
-    left: 32px;
+    left: 35px;
     width: calc(100% - 64px);
     transform: translateY(-50%);
-    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 180px;
     color: #fff;
     mix-blend-mode: difference;
     z-index: 100;
-    display: grid;
-    grid-template-columns: 4fr 2fr;
     pointer-events: none;
 }
 
 .backgrid {
-    background: #fff;
-    background-image: linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px);
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    outline: #525252;
+    background: transparent;
+    background-image: linear-gradient(rgba(0,0,0,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.055) 1px, transparent 1px);
+    background-size: 100px 20px;
+
 }
 
-.featured-media {
+.blocks {
     grid-column: span 13;
 }
 
-#full-container-index .featured-media {
+#full-container-index .blocks{
     display: block;
     filter: grayscale(1);
     transition: filter .3s linear;
 }
-.featured-single img, .featured-single video {
-    height: 700px;
+.block-image{
+    width: 700px;
+}
+.block-link, .block-text, .block-video {
+    margin-bottom: 200px;
+
 }
 
 .project{
     margin-top: 60px;
     display: grid;
-    grid-template-columns: 2fr 2fr 7fr 2fr;
-    position: relative;}
+    grid-template-columns: 0.5fr 0.8fr 1fr 5fr 2fr;
+    margin-left: 50px;
+    position: relative;
 
-.featured-text {
-        font-size: 40px;
-        text-indent: calc(((100vw - 35px) / 90) * 20);
-        line-height: 1;
-        width: calc(((100vw - 35px) / 90) * 80);
+}
+.video{
+    display: 1800px;
+}
+
+.block-text {
+        font-size: 50px;
+        text-indent: 20%;
+        line-height: 1.25;
+        width: 900px;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         text-align: left;
+        margin-top: 100px;
+    
+    
 }
-.single-module {
-    margin-top: 100px;
-    margin-bottom: 20px;
+p+p{
+    margin-top: 1em;
 }
