@@ -153,10 +153,3 @@ p+p{
     filter: grayscale(100%);
   }
 
-  .small {
-    transform: scale(0.5);
-  }
-  
-  .element-class {
-    transition: transform 0.5s ease;
-  }
