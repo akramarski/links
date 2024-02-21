@@ -106,7 +106,7 @@ let renderBlock = (block) => {
 			// …up to you!
 			let pdfItem = 
 			`
-			<li class="block block--pdf pdf--container">
+			<li class="block block--pdf pdf-container">
 				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
 				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
 				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
