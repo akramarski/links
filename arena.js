@@ -28,7 +28,7 @@ let placeChannelInfo = (data) => {
 let renderBlock = (block) => {
 	// To start, a shared `ul` where we’ll insert all our blocks
 	let channelBlocks = document.getElementById('channel-blocks')
-	console.log(channelBlocks)
+
 
 	// Links!
 	if (block.class == 'Link') {
@@ -54,13 +54,18 @@ let renderBlock = (block) => {
 	else if (block.class == 'Image') {
 		let imageItem =
 			`
-			<li class="block block--image block-image">
+			<li class="block block--image block-image small">
                     <figure>
                     <img src=${ block.image.large.url }alt=${block.title} by ${block.author}>
+					<source media="(max-width: 428px)" srcset="${ block.image.thumb.url }">
+					<source media="(max-width: 640px)" srcset="${ block.image.large.url }">
                 </figure>
                 </li>
+			<div class="block--image__description"> 
+			${ block.description_html } </div>
 			`
 		channelBlocks.insertAdjacentHTML('beforeend', imageItem)
+	
 	}
 
 	// Text!
@@ -75,6 +80,8 @@ let renderBlock = (block) => {
 		channelBlocks.insertAdjacentHTML('beforeend', textItem)
 	}
 
+
+
 	// Uploaded (not linked) media…
 	else if (block.class == 'Attachment') {
 		let attachment = block.attachment.content_type // Save us some repetition
@@ -83,10 +90,9 @@ let renderBlock = (block) => {
 		if (attachment.includes('video')) {
 			// …still up to you, but we’ll give you the `video` element:
 			let videoItem =
-			console.log(blocks)
 				`
 				<li>
-					<p><em>Video</em></p>
+					<p><em></em></p>
 					<video controls src="${ block.attachment.url }"></video>
 				</li>
 				`
@@ -98,6 +104,16 @@ let renderBlock = (block) => {
 		// Uploaded PDFs!
 		else if (attachment.includes('pdf')) {
 			// …up to you!
+			let pdfItem = 
+			`
+			<li class="block block--pdf pdf--container">
+				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
+				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
+				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
+			</li>
+		`;
+		channelBlocks.insertAdjacentHTML('beforeend', pdfItem);
+			
 		}
 
 		// Uploaded audio!
@@ -107,7 +123,7 @@ let renderBlock = (block) => {
 				`
 				<li>
 					<p><em>Audio</em></p>
-					<audio controls src="${ block.attachment.url }"></video>
+					<audio controls src="${ block.attachment.url }" ></audio>
 				</li>
 				`
 			channelBlocks.insertAdjacentHTML('beforeend', audioItem)
@@ -123,15 +139,18 @@ let renderBlock = (block) => {
 		if (embed.includes('video')) {
 			// …still up to you, but here’s an example `iframe` element:
 			let linkedVideoItem =
+			
 				`
-				<li>
-					<p><em>Linked Video</em></p>
-					${ block.embed.html }
+				<li class="block block--video container-for-video iframe"> 
+					${ block.embed.html } 
+				
 				</li>
 				`
 			channelBlocks.insertAdjacentHTML('beforeend', linkedVideoItem)
 			// More on iframe: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe
 		}
+
+		
 
 		// Linked audio!
 		else if (embed.includes('rich')) {
@@ -139,6 +158,7 @@ let renderBlock = (block) => {
 		}
 	}
 }
+
 
 
 // Now that we have said what we can do, go get the data:
@@ -158,3 +178,43 @@ fetch(`https://api.are.na/v2/channels/${channelSlug}?per=100`, { cache: 'no-stor
 		data.collaborators.forEach((collaborator) => renderUser(collaborator, channelUsers))
 		renderUser(data.user, channelUsers)
 	})
+
+	const videoId = "${ block.embed.html }"; 
+	const playButton = document.querySelector('#playButton'); // Suponiendo que tienes un botón para reproducir el video
+	
+	playButton.addEventListener('click', () => {
+		let videoIframe = `
+			<iframe 
+				width="560" 
+				height="315" 
+				src="${ block.embed.html } " 
+				frameborder="0" 
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+				allowfullscreen>
+			</iframe>`;
+		document.querySelector('.container-for-video').innerHTML = videoIframe; // Asegúrate de tener un contenedor para el video
+	});
+	
+
+	document.querySelectorAll('.container-for-video iframe').forEach(iframe => {
+		iframe.addEventListener('click', () => {
+		  iframe.style.filter = 'none';
+		});
+	  });
+
+
+	  document.addEventListener('DOMContentLoaded', () => {
+		const observer = new IntersectionObserver((entries) => {
+		  entries.forEach(entry => {
+			if (entry.isIntersecting) {
+			  entry.target.classList.remove('small');
+			} else {
+			  entry.target.classList.add('small');
+			}
+		  });
+		}, { threshold: 0.1 });
+	  
+		document.querySelectorAll('.element-class').forEach(el => observer.observe(el));
+		document.querySelectorAll('.small').forEach(el => observer.observe(el));
+	  });
+	  
