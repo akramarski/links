@@ -107,15 +107,13 @@ main {
 
 }
 
-.pdf-container{
-    margin-bottom: 200px;
-}
 
 
 .project{
     margin-top: 60px;
     display: grid;
-    grid-template-columns: 0.8fr 1fr 3fr 1fr 2fr;
+    grid-template-columns: 0.8fr 1fr 3fr 2fr 2fr;
+    gap: 10px;
     padding: 50px;
     position: relative;
 
@@ -138,18 +136,22 @@ p+p{
 }
 
 .pdf-container {
-    margin-top: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 .container-for-video {
     margin-top: 200px;
+    margin-bottom: 100px;
     width: 100%;
+    height: 800px;
     overflow: hidden;
   }
 
 
   .container-for-video iframe {
     width: 100%;
+    height: 800px;
     filter: grayscale(100%);
   }
 
