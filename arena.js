@@ -14,8 +14,8 @@ let placeChannelInfo = (data) => {
 	// Target some elements in your HTML:
 	let channelTitle = document.getElementById('title-homepage')
 	//let channelDescription = document.getElementById('channel-description')
-	//let channelCount = document.getElementById('channel-count')
-	//let channelLink = document.getElementById('channel-link')
+	let channelCount = document.getElementById('channel-count')
+	let channelLink = document.getElementById('channel-link')
 
 	// Then set their content/attributes to our data:
 	channelTitle.innerHTML = data.title
@@ -34,12 +34,11 @@ let renderBlock = (block) => {
 	if (block.class == 'Link') {
 		let linkItem =
 			`
-			<li class="block block--link project">
-				<p><em>Link</em></p>
+			<li class="block block--link project fade-effect ">
+				<p><a href="${ block.source.url }">Link</a></p>
 				
 				<h3>${ block.title }</h3>
 				${ block.description_html }
-				<p><a href="${ block.source.url }">See the original ↗</a></p>
 				<picture>
 					<source media="(max-width: 428px)" srcset="${ block.image.thumb.url }">
 					<source media="(max-width: 640px)" srcset="${ block.image.large.url }">
@@ -50,30 +49,30 @@ let renderBlock = (block) => {
 		channelBlocks.insertAdjacentHTML('beforeend', linkItem)
 	}
 
+
+
 	// Images!
 	else if (block.class == 'Image') {
 		let imageItem =
 			`
-			<li class="block block--image block-image small">
+			<li class="block block--image block-image small fade-effect ">
                     <figure>
-                    <img src=${ block.image.large.url }alt=${block.title} by ${block.author}>
+                    <img src=${ block.image.large.url }>
 					<source media="(max-width: 428px)" srcset="${ block.image.thumb.url }">
 					<source media="(max-width: 640px)" srcset="${ block.image.large.url }">
                 </figure>
                 </li>
-			<div class="block--image__description"> 
-			${ block.description_html } </div>
+			<div class="block--image__description">  </div>
 			`
 		channelBlocks.insertAdjacentHTML('beforeend', imageItem)
 	
 	}
-
 	// Text!
 	else if (block.class == 'Text') {
 		// …up to you!
 		let textItem =
 			`
-			<li class="block block--text block-text">
+			<li class="block block--text block-text fade-effect">
 			${ block.content_html }
                 </li>
 			`
@@ -106,10 +105,10 @@ let renderBlock = (block) => {
 			// …up to you!
 			let pdfItem = 
 			`
-			<li class="block block--pdf pdf-container">
-				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
-				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
-				<iframe src="${block.attachment.url}" style="width:33,3%; height:500px;"></iframe>
+			<li class="block block--pdf pdf-container fade-effect ">
+				<iframe src="${block.attachment.url}" style="width:33,3%; height:400px;"></iframe>
+				<iframe src="${block.attachment.url}" style="width:33,3%; height:400px;"></iframe>
+
 			</li>
 		`;
 		channelBlocks.insertAdjacentHTML('beforeend', pdfItem);
@@ -141,7 +140,7 @@ let renderBlock = (block) => {
 			let linkedVideoItem =
 			
 				`
-				<li class="block block--video container-for-video iframe"> 
+				<li class="block block--video container-for-video iframe fade-effect "> 
 					${ block.embed.html } 
 				
 				</li>
@@ -158,7 +157,7 @@ let renderBlock = (block) => {
 		}
 	}
 }
-
+ 
 
 
 // Now that we have said what we can do, go get the data:
@@ -180,7 +179,7 @@ fetch(`https://api.are.na/v2/channels/${channelSlug}?per=100`, { cache: 'no-stor
 	})
 
 	const videoId = "${ block.embed.html }"; 
-	const playButton = document.querySelector('#playButton'); // Suponiendo que tienes un botón para reproducir el video
+	const playButton = document.querySelector('#playButton'); 
 	
 	playButton.addEventListener('click', () => {
 		let videoIframe = `
@@ -192,7 +191,7 @@ fetch(`https://api.are.na/v2/channels/${channelSlug}?per=100`, { cache: 'no-stor
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
 				allowfullscreen>
 			</iframe>`;
-		document.querySelector('.container-for-video').innerHTML = videoIframe; // Asegúrate de tener un contenedor para el video
+		document.querySelector('.container-for-video').innerHTML = videoIframe; 
 	});
 	
 
@@ -202,19 +201,21 @@ fetch(`https://api.are.na/v2/channels/${channelSlug}?per=100`, { cache: 'no-stor
 		});
 	  });
 
-
 	  document.addEventListener('DOMContentLoaded', () => {
-		const observer = new IntersectionObserver((entries) => {
-		  entries.forEach(entry => {
-			if (entry.isIntersecting) {
-			  entry.target.classList.remove('small');
-			} else {
-			  entry.target.classList.add('small');
-			}
-		  });
+		let titleHomepage = document.querySelector('#title-homepage');
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					titleHomepage.classList.add('fade-out');
+				} else {
+					titleHomepage.classList.remove('fade-out');
+				}
+			});
 		}, { threshold: 0.1 });
-	  
-		document.querySelectorAll('.element-class').forEach(el => observer.observe(el));
-		document.querySelectorAll('.small').forEach(el => observer.observe(el));
-	  });
-	  
+	
+		document.querySelectorAll('Image').forEach(image => {
+			observer.observe(image);
+		});
+	});
+
+	
