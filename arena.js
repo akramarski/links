@@ -35,16 +35,19 @@ let renderBlock = (block) => {
 		let linkItem =
 			`
 			<li class="block block--link project fade-effect ">
-				<p><a href="${ block.source.url }">Link</a></p>
 				
 				<h3>${ block.title }</h3>
 				${ block.description_html }
+				<p><a href="${ block.source.url }">Visit link</a></p>
 				<picture>
 					<source media="(max-width: 428px)" srcset="${ block.image.thumb.url }">
 					<source media="(max-width: 640px)" srcset="${ block.image.large.url }">
 					<img src=${ block.image.large.url }>
 				</picture>
+				
+				
 			</li>
+			
 			`
 		channelBlocks.insertAdjacentHTML('beforeend', linkItem)
 	}
