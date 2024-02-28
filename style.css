@@ -142,7 +142,7 @@ menu a{
     font-family: var(--font-title);
     font-size: 70px; 
     color: black; 
-    width: 80%; 
+    width: 100%; 
 }
 
 .ticker {
@@ -372,8 +372,9 @@ body {
     
  
   }
-  .pdf-container{
+  .pdf-container iframe{
     margin-right: 20px;
+
   }
 
     } 
@@ -412,7 +413,7 @@ p+p{
 }
 
 .pdf-container {
-
+    display: inline-block;
     margin-bottom: 100px;
     margin-left: 20px;
 
